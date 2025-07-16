@@ -1,0 +1,6 @@
+# Exclude everything from the Docker context
+**
+
+# Include the Google Service files
+!GoogleService-Info.plist
+!google-services.json

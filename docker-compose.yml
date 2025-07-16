@@ -1,0 +1,36 @@
+---
+volumes:
+  db_data:
+
+services:
+  app:
+    image: mieweb_auth_app:latest
+    deploy:
+      replicas: 3
+    environment:
+      MONGO_URL: mongodb://mongodb:27017/mieweb_auth_app
+    env_file:
+      - .env
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    volumes:
+      - db_data:/data/db
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:Z
+    depends_on:
+      - app
+
+  ngrok:
+    image: ngrok/ngrok:latest
+    env_file:
+      - .env
+    command:
+      - http
+      - --url=$NGROK_URL
+      - nginx:80
