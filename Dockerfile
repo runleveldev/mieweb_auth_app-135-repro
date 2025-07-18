@@ -22,9 +22,6 @@ RUN useradd -m -d /home/mieweb -s /usr/sbin/nologin mieweb
 # Build stage
 # ===========
 FROM base AS builder
-ARG ROOT_URL
-ARG BRANCH
-
 WORKDIR /home/mieweb
 ENV ANDROID_HOME="/home/mieweb/.android"
 ENV JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
@@ -52,6 +49,7 @@ RUN curl https://dl.google.com/android/repository/commandlinetools-linux-1311475
     ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager "build-tools;34.0.0" "platform-tools" "platforms;android-34"
 
 # Clone the repo
+ARG BRANCH
 RUN git clone --depth 1 -b ${BRANCH} https://github.com/mieweb/mieweb_auth_app.git /home/mieweb/app
 WORKDIR /home/mieweb/app
 
@@ -63,6 +61,7 @@ COPY GoogleService-Info.plist public/ios/dev/GoogleService-Info.plist
 RUN meteor npm install --omit=dev --no-audit --no-fund
 
 # Build the Meteor app
+ARG ROOT_URL
 RUN meteor build \
       --architecture os.linux.x86_64 \
       --directory /home/mieweb/build \
