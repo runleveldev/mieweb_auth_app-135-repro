@@ -17,7 +17,8 @@ FIREBASE_SERVICE_ACCOUNT_JSON='{..}'
 3. Build the `mieweb_auth_app` container
 
 ```bash
-docker build -t mieweb_auth_app --build-arg-file .env .
+source .env
+docker build -t mieweb_auth_app --build-arg ROOT_URL=$ROOT_URL --build-arg BRANCH=$BRANCH .
 ```
 
 4. Run the docker compose
