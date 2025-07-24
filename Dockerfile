@@ -81,7 +81,7 @@ RUN keytool -genkey -v \
     ${ANDROID_HOME}/build-tools/34.0.0/apksigner sign \
         --ks /home/mieweb/app.keystore \
         --ks-pass pass:password \
-        --key-pass pass:password \
+     --key-pass pass:password \
         --out /home/mieweb/build/android/app-release-signed.apk \
         /home/mieweb/build/android/app-release-unsigned.apk && \
     rm /home/mieweb/build/android/app-release-unsigned.apk
