@@ -58,7 +58,7 @@ COPY google-services.json public/android/dev/google-services.json
 COPY GoogleService-Info.plist public/ios/dev/GoogleService-Info.plist
 
 # Install dependencies
-RUN meteor npm install --omit=dev --no-audit --no-fund
+RUN meteor npm install --no-audit --no-fund
 
 # Build the Meteor app
 ARG ROOT_URL
